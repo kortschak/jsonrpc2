@@ -12,6 +12,10 @@ rm -rf internal/stack/gostacks
 rmdir tmp
 sed -i -r 's#"golang.org/x/tools/internal/jsonrpc2_v2"#"github.com/kortschak/jsonrpc2"#g' *.go
 sed -i -r 's#"golang.org/x/tools/internal/#"github.com/kortschak/jsonrpc2/internal/#g' *.go $(find internal -name '*.go')
-git rev-parse FETCH_HEAD > upstream
 git reset
+if ["$(git diff -- !(gen).go internal LICENSE)" == ""]; then
+	>&2 echo no change
+	exit 0
+fi
+git rev-parse FETCH_HEAD > upstream
 go test
