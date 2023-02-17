@@ -3,6 +3,7 @@ shopt -s extglob
 rm -rf !(gen).go internal LICENSE
 mkdir tmp
 touch tmp/LICENSE
+git fetch https://go.googlesource.com/tools master
 git --work-tree=./tmp checkout FETCH_HEAD -- 'LICENSE' 'internal/jsonrpc2_v2/*' 'internal/event' 'internal/stack'
 mv tmp/LICENSE tmp/internal/jsonrpc2_v2/* .
 rmdir tmp/internal/jsonrpc2_v2
