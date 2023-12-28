@@ -4,7 +4,7 @@ rm -rf !(gen).go internal LICENSE
 mkdir tmp
 touch tmp/LICENSE
 git fetch https://go.googlesource.com/tools master
-git --work-tree=./tmp checkout FETCH_HEAD -- 'LICENSE' 'internal/jsonrpc2_v2/*' 'internal/event' 'internal/stack'
+git --work-tree=./tmp checkout FETCH_HEAD -- 'LICENSE' 'internal/jsonrpc2_v2/*' 'internal/event' 'internal/goroot' 'internal/stack' 'internal/testenv'
 mv tmp/LICENSE tmp/internal/jsonrpc2_v2/* .
 rmdir tmp/internal/jsonrpc2_v2
 rm -rf internal
@@ -19,4 +19,5 @@ if ["$(git diff -- !(gen).go internal LICENSE)" == ""]; then
 	exit 0
 fi
 git rev-parse FETCH_HEAD > upstream
+go mod tidy
 go test
